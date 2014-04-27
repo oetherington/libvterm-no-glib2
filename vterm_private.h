@@ -57,10 +57,10 @@ struct _vterm_s
 	int	         saved_x,saved_y;      // saved cursor coords
 	short            colors;               // color pair for default fg/bg
 	int              fg,bg;                // current fg/bg colors
-	char	         esbuf[ESEQ_BUF_SIZE]; /* 0-terminated string. Does
+/**/	char	         esbuf[ESEQ_BUF_SIZE]; /* 0-terminated string. Does
                                                    NOT include the initial
                                                    escape (\x1B) character. */
-	int 	         esbuf_len;            /* length of buffer. The
+/**/	int 	         esbuf_len;            /* length of buffer. The
                                                    following property is
                                                    always kept:
                                                    esbuf[esbuf_len] == '\0' */

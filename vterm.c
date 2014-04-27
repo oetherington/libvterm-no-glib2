@@ -45,7 +45,6 @@ vterm_t* vterm_create(int width, int height, int flags)
    pid_t          child_pid;
    int            master_fd;
    struct winsize ws={.ws_xpixel=0,.ws_ypixel=0};
-   //int            cell_count;
    int            i;
 
    if(height <= 0 || width <= 0) return NULL;
@@ -55,8 +54,6 @@ vterm_t* vterm_create(int width, int height, int flags)
    /* record dimensions */
    vterm->rows=height;
    vterm->cols=width;
-
-   //cell_count=width*height;
 
    /* create the cell matrix */
    vterm->cells = malloc(sizeof(vterm_cell_t *) * height);
@@ -131,6 +128,10 @@ vterm_t* vterm_create(int width, int height, int flags)
 
    if(flags & VTERM_FLAG_VT100) vterm->write=vterm_write_vt100;
    else vterm->write=vterm_write_rxvt;
+
+   vterm->fg = -1;
+   vterm->bg = -1;
+   vterm->state = 0;
 
    return vterm;
 }
