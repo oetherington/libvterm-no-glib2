@@ -1,30 +1,32 @@
 /*
-Copyright (C) 2009 Bryan Christ
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-/*
-This library is based on ROTE written by Bruno Takahashi C. de Oliveira
-*/
+ * Modifed to remove glib2.0 dependency by Ollie Etherington (C) Copyright 2014
+ *
+ * libvterm Copyright (C) 2009 Bryan Christ
+ * libvterm is based on ROTE written by Bruno Takahashi C. de Oliveira
+ *
+ * As per previous releases, this program is available under the GNU GPL v2
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <poll.h>
 #include <errno.h>
+#include <limits.h>
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -34,17 +36,21 @@ This library is based on ROTE written by Bruno Takahashi C. de Oliveira
 #include "vterm_private.h"
 #include "vterm_render.h"
 
+#ifndef SSIZE_MAX
+#define SSIZE_MAX ((ssize_t) (SIZE_MAX / 2))
+#endif
+
 ssize_t vterm_read_pipe(vterm_t *vterm)
 {
    struct pollfd     fd_array;
-   char 					*buf=NULL;
+   char 	     *buf=NULL;
    char              *pos;
    int               bytes_peek=0;
-	size_t				bytes_waiting;
-   ssize_t				bytes_read=0;
+   size_t	     bytes_waiting;
+   ssize_t	     bytes_read=0;
    size_t            bytes_remaining=0;
    size_t            bytes_total=0;
-   gint              retval;
+   int               retval;
    pid_t             child_pid;
    int               pid_status;
    int               errcpy=0;
@@ -120,5 +126,3 @@ ssize_t vterm_read_pipe(vterm_t *vterm)
 
    return bytes_waiting-bytes_remaining;
 }
-
-

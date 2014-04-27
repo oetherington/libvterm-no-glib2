@@ -1,26 +1,28 @@
 /*
-Copyright (C) 2009 Bryan Christ
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-/*
-This library is based on ROTE written by Bruno Takahashi C. de Oliveira
-*/
+ * Modifed to remove glib2.0 dependency by Ollie Etherington (C) Copyright 2014
+ *
+ * libvterm Copyright (C) 2009 Bryan Christ
+ * libvterm is based on ROTE written by Bruno Takahashi C. de Oliveira
+ *
+ * As per previous releases, this program is available under the GNU GPL v2
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 #include <termios.h>
+#include <stdlib.h>
 #include <string.h>
 #include <signal.h>
 
@@ -30,14 +32,11 @@ This library is based on ROTE written by Bruno Takahashi C. de Oliveira
 #include "vterm_private.h"
 #include "vterm_misc.h"
 
-void vterm_resize(vterm_t *vterm,guint width,guint height)
+void vterm_resize(vterm_t *vterm,unsigned int width,unsigned int height)
 {
    struct winsize ws={.ws_xpixel=0,.ws_ypixel=0};
-   guint          i;
-   gint           delta_x;
-   gint           delta_y;
-   gint           start_x;
-   gint           start_y;
+   unsigned int  i;
+   int delta_x, delta_y, start_x, start_y;
 
    if(vterm==NULL) return;
    if(width==0 || height==0) return;
@@ -47,7 +46,7 @@ void vterm_resize(vterm_t *vterm,guint width,guint height)
    start_x=vterm->cols;
    start_y=vterm->rows;
 
-   vterm->cells=(vterm_cell_t**)g_realloc(vterm->cells,
+   vterm->cells=(vterm_cell_t**)realloc(vterm->cells,
       sizeof(vterm_cell_t*)*height);
 
    for(i=0;i < height;i++)
@@ -55,7 +54,7 @@ void vterm_resize(vterm_t *vterm,guint width,guint height)
       // realloc() does not initlize new elements
       if((delta_y > 0) && (i > vterm->rows-1)) vterm->cells[i]=NULL;
 
-      vterm->cells[i]=(vterm_cell_t*)g_realloc(vterm->cells[i],
+      vterm->cells[i]=(vterm_cell_t*)realloc(vterm->cells[i],
          sizeof(vterm_cell_t)*width);
    }
 

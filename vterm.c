@@ -1,28 +1,30 @@
 /*
-Copyright (C) 2009 Bryan Christ
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-/*
-This library is based on ROTE written by Bruno Takahashi C. de Oliveira
-*/
+ * Modifed to remove glib2.0 dependency by Ollie Etherington (C) Copyright 2014
+ *
+ * libvterm Copyright (C) 2009 Bryan Christ
+ * libvterm is based on ROTE written by Bruno Takahashi C. de Oliveira
+ *
+ * As per previous releases, this program is available under the GNU GPL v2
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 #include <stdlib.h>
 #include <pty.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <pwd.h>
 #include <utmp.h>
@@ -31,13 +33,11 @@ This library is based on ROTE written by Bruno Takahashi C. de Oliveira
 
 #include <sys/types.h>
 
-#include <glib.h>
-
 #include "vterm.h"
 #include "vterm_private.h"
 #include "vterm_write.h"
 
-vterm_t* vterm_create(guint width,guint height,guint flags)
+vterm_t* vterm_create(int width, int height, int flags)
 {
    vterm_t        *vterm;
    struct passwd  *user_profile;
@@ -45,25 +45,24 @@ vterm_t* vterm_create(guint width,guint height,guint flags)
    pid_t          child_pid;
    int            master_fd;
    struct winsize ws={.ws_xpixel=0,.ws_ypixel=0};
-   int            cell_count;
+   //int            cell_count;
    int            i;
 
    if(height <= 0 || width <= 0) return NULL;
 
-   vterm=(vterm_t*)g_malloc0(sizeof(vterm_t));
+   vterm = malloc(sizeof(vterm_t));
 
    /* record dimensions */
    vterm->rows=height;
    vterm->cols=width;
 
-   cell_count=width*height;
+   //cell_count=width*height;
 
    /* create the cell matrix */
-   vterm->cells=(vterm_cell_t**)g_malloc0(sizeof(vterm_cell_t*)*height);
+   vterm->cells = malloc(sizeof(vterm_cell_t *) * height);
 
-   for(i=0;i < height;i++)
-   {
-      vterm->cells[i]=(vterm_cell_t*)g_malloc0(sizeof(vterm_cell_t)*width);
+   for(i=0;i < height;i++) {
+      vterm->cells[i]=malloc(sizeof(vterm_cell_t) * width);
    }
 
    // initialize all cells with defaults
@@ -142,10 +141,10 @@ void vterm_destroy(vterm_t *vterm)
 
    if(vterm==NULL) return;
 
-   for(i=0;i < vterm->rows;i++) g_free(vterm->cells[i]);
-   g_free(vterm->cells);
+   for(i=0;i < vterm->rows;i++) free(vterm->cells[i]);
+   free(vterm->cells);
 
-   g_free(vterm);
+   free(vterm);
 
    return;
 }
@@ -157,16 +156,16 @@ pid_t vterm_get_pid(vterm_t *vterm)
    return vterm->child_pid;
 }
 
-gint vterm_get_pty_fd(vterm_t *vterm)
+int vterm_get_pty_fd(vterm_t *vterm)
 {
    if(vterm==NULL) return -1;
 
    return vterm->pty_fd;
 }
 
-const gchar* vterm_get_ttyname(vterm_t *vterm)
+const char* vterm_get_ttyname(vterm_t *vterm)
 {
    if(vterm == NULL) return NULL;
 
-   return (const gchar*)vterm->ttyname;
+   return (const char*)vterm->ttyname;
 }

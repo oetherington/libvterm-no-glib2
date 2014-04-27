@@ -1,23 +1,25 @@
 /*
-LICENSE INFORMATION:
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License (LGPL) as published by the Free Software Foundation.
-
-Please refer to the COPYING file for more information.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public
-License along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
-
-Copyright (c) 2009 Bryan Christ
-*/
-
+ * Modifed to remove glib2.0 dependency by Ollie Etherington (C) Copyright 2014
+ *
+ * libvterm Copyright (C) 2009 Bryan Christ
+ * libvterm is based on ROTE written by Bruno Takahashi C. de Oliveira
+ *
+ * As per previous releases, this program is available under the GNU GPL v2
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
 #include "vterm.h"
 #include "vterm_private.h"
@@ -44,9 +46,9 @@ void vterm_erase(vterm_t *vterm)
    return;
 }
 
-void vterm_erase_row(vterm_t *vterm,gint row)
+void vterm_erase_row(vterm_t *vterm,int row)
 {
-   gint  i;
+   int  i;
 
    if(vterm == NULL) return;
 
@@ -61,7 +63,7 @@ void vterm_erase_row(vterm_t *vterm,gint row)
    return;
 }
 
-void vterm_erase_rows(vterm_t *vterm,gint start_row)
+void vterm_erase_rows(vterm_t *vterm,int start_row)
 {
    if(vterm == NULL) return;
    if(start_row < 0) return;
@@ -75,9 +77,9 @@ void vterm_erase_rows(vterm_t *vterm,gint start_row)
    return;
 }
 
-void vterm_erase_col(vterm_t *vterm,gint col)
+void vterm_erase_col(vterm_t *vterm,int col)
 {
-   gint  i;
+   int  i;
 
    if(vterm==NULL) return;
 
@@ -92,7 +94,7 @@ void vterm_erase_col(vterm_t *vterm,gint col)
    return;
 }
 
-void vterm_erase_cols(vterm_t *vterm,gint start_col)
+void vterm_erase_cols(vterm_t *vterm,int start_col)
 {
    if(vterm == NULL) return;
    if(start_col < 0) return;
@@ -105,4 +107,3 @@ void vterm_erase_cols(vterm_t *vterm,gint start_col)
 
    return;
 }
-
