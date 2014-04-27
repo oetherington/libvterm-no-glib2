@@ -162,6 +162,34 @@ void vterm_interpret_csi(vterm_t *vterm)
    }
 }
 
+/* Interpret the DEC RM (reset mode) */
+void interpret_dec_RM(vterm_t *vterm,int param[],int pcount)
+{
+   int i;
+
+   if(pcount==0) return;
+
+   for(i=0;i < pcount;i++)
+   {
+      /* civis is actually the "normal" vibility for rxvt   */
+      if(param[i]==25) vterm->state |= STATE_CURSOR_INVIS;
+   }
+}
+
+/* Interpret DEC SM (set mode) */
+void interpret_dec_SM(vterm_t *vterm,int param[],int pcount)
+{
+   int i;
+
+   if(pcount==0) return;
+
+   for(i=0;i < pcount;i++)
+   {
+      /* civis is actually "normal" for rxvt */
+      if(param[i]==25) vterm->state &= ~STATE_CURSOR_INVIS;
+   }
+}
+
 /* interprets a 'move cursor' (CUP) escape sequence */
 void interpret_csi_CUP(vterm_t *vterm, int param[], int pcount)
 {

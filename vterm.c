@@ -133,6 +133,10 @@ vterm_t* vterm_create(int width, int height, int flags)
    vterm->fg = -1;
    vterm->bg = -1;
    vterm->state = 0;
+   vterm->saved_x = 0;
+   vterm->saved_y = 0;
+
+   vterm->window = NULL;
 
    return vterm;
 }

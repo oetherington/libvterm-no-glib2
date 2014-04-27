@@ -45,6 +45,9 @@ int main()
    vterm_set_colors(vterm, COLOR_BLACK, COLOR_WHITE);
    vterm_wnd_set(vterm,term_win);
 
+   int i, j;
+   for (i = 0; i < 25; i++) for (j = 0; j < 80; j++) addch(' ');
+
    int ch = '\0';
    ssize_t bytes;
    while (ch != 'D')
