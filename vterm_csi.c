@@ -527,11 +527,6 @@ void interpret_csi_SAVECUR(vterm_t *vterm,int param[],int pcount)
    28    Invisible image off
 */
 
-#include "vterm.h"
-#include "vterm_private.h"
-#include "vterm_csi.h"
-#include "vterm_colors.h"
-
 /* interprets a 'set attribute' (SGR) CSI escape sequence */
 void interpret_csi_SGR(vterm_t *vterm, int param[], int pcount)
 {
