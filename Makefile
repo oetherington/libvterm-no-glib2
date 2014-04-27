@@ -11,8 +11,8 @@ all: libvterm
 debug: libvterm
 
 libvterm:
-	gcc $(CFLAGS) $(DEFS) -c -fPIC *.c
-	gcc -shared -o libvterm.so -lutil *.o
+	gcc $(CFLAGS) $(DEFS) -c -fPIC *.c -g
+	gcc -shared -o libvterm.so -lutil *.o -g
 
 clean:
 	rm -f *.o
