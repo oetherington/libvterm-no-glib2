@@ -618,4 +618,3 @@ void interpret_csi_SGR(vterm_t *vterm, int param[], int pcount)
       }
    }
 }
-

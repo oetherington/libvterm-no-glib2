@@ -70,6 +70,7 @@ vterm_t* vterm_create(int width, int height, int flags)
    vterm->ccol=0;
 
    // default active colors
+   vterm->colors = 0;
    vterm->curattr=COLOR_PAIR(vterm->colors);
 
    // initial scrolling area is the whole window

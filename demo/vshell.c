@@ -42,7 +42,7 @@ int main()
    WINDOW *term_win = newwin(25,80,1,4);
 
    vterm_t *vterm=vterm_create(80,25,VTERM_FLAG_VT100);
-   vterm_set_colors(vterm, COLOR_WHITE, COLOR_BLACK);
+   vterm_set_colors(vterm, COLOR_BLACK, COLOR_WHITE);
    vterm_wnd_set(vterm,term_win);
 
    int ch = '\0';
@@ -54,7 +54,7 @@ int main()
       {
          vterm_wnd_update(vterm);
          touchwin(term_win);
-         //wrefresh(term_win);
+         wrefresh(term_win);
          refresh();
       }
 
