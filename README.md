@@ -1,7 +1,7 @@
 #libvterm
 
 Based on ROTE by Bruno Takahashi C. de Oliveira, libvterm is a terminal emulator
-library that attempts to mimic both VT100 and rxvt capabilities (GPLv2).
+library by Bryan Christ that attempts to mimic both VT100 and rxvt capabilities.
 
 This is a fully functional fork of libvterm with all dependencies on glib2.0
 removed and replaced with standard library functions. This makes it far more
