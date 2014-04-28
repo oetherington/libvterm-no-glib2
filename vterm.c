@@ -49,17 +49,17 @@ vterm_t* vterm_create(int width, int height, int flags)
 
    if(height <= 0 || width <= 0) return NULL;
 
-   vterm = malloc(sizeof(vterm_t));
+   vterm = calloc(1, sizeof(vterm_t));
 
    /* record dimensions */
    vterm->rows=height;
    vterm->cols=width;
 
    /* create the cell matrix */
-   vterm->cells = malloc(sizeof(vterm_cell_t *) * height);
+   vterm->cells = calloc(height, sizeof(vterm_cell_t *));
 
    for(i=0;i < height;i++) {
-      vterm->cells[i]=malloc(sizeof(vterm_cell_t) * width);
+      vterm->cells[i]=calloc(width, sizeof(vterm_cell_t));
    }
 
    // initialize all cells with defaults
